@@ -35,7 +35,7 @@ function GlassRing({
   scale?: number;
 }) {
   return (
-    <Float speed={1.1} rotationIntensity={0.4} floatIntensity={1.2}>
+    <Float speed={1} rotationIntensity={0.25} floatIntensity={0.7}>
       <mesh position={position} rotation={rotation} scale={scale}>
         <torusGeometry args={[1, 0.28, 48, 96]} />
         <meshPhysicalMaterial
@@ -112,46 +112,46 @@ function SceneGroup() {
   return (
     <group ref={group}>
       {/* Chrome cylinder */}
-      <Float speed={1} rotationIntensity={0.5} floatIntensity={1}>
-        <mesh position={[1.6, 0.9, 0]} rotation={[0.6, 0.2, -0.5]}>
+      <Float speed={0.9} rotationIntensity={0.3} floatIntensity={0.6}>
+        <mesh position={[1.4, 1.1, -0.3]} rotation={[0.6, 0.2, -0.5]}>
           <cylinderGeometry args={[0.42, 0.42, 2.6, 64]} />
           <ChromeMaterial />
         </mesh>
       </Float>
 
       {/* Metallic capsule */}
-      <Float speed={1.3} rotationIntensity={0.6} floatIntensity={1.4}>
-        <mesh position={[-1.7, -0.6, 0.4]} rotation={[0.3, 0.4, 1.1]}>
+      <Float speed={1.1} rotationIntensity={0.35} floatIntensity={0.8}>
+        <mesh position={[-1.2, -0.9, 0.2]} rotation={[0.3, 0.4, 1.1]}>
           <capsuleGeometry args={[0.38, 1.4, 12, 32]} />
           <ChromeMaterial />
         </mesh>
       </Float>
 
       {/* Black reflective monolith */}
-      <Float speed={0.8} rotationIntensity={0.35} floatIntensity={0.9}>
-        <mesh position={[0.2, -1.5, -1]} rotation={[0.2, 0.7, 0.15]}>
-          <boxGeometry args={[0.9, 2.2, 0.9]} />
+      <Float speed={0.7} rotationIntensity={0.2} floatIntensity={0.5}>
+        <mesh position={[0.3, -1.4, -1.6]} rotation={[0.2, 0.7, 0.15]}>
+          <boxGeometry args={[0.7, 1.8, 0.7]} />
           <ObsidianMaterial />
         </mesh>
       </Float>
 
       {/* Slim floating tube */}
-      <Float speed={1.5} rotationIntensity={0.7} floatIntensity={1.6}>
-        <mesh position={[-0.6, 1.8, -0.8]} rotation={[1.1, 0.1, 0.8]}>
+      <Float speed={1.2} rotationIntensity={0.4} floatIntensity={0.9}>
+        <mesh position={[-0.5, 1.7, -1]} rotation={[1.1, 0.1, 0.8]}>
           <cylinderGeometry args={[0.12, 0.12, 3, 32]} />
           <ObsidianMaterial />
         </mesh>
       </Float>
 
       {/* Small chrome sphere */}
-      <Float speed={1.8} rotationIntensity={0.2} floatIntensity={2}>
-        <mesh position={[2.6, -1.1, -0.5]}>
+      <Float speed={1.4} rotationIntensity={0.15} floatIntensity={1}>
+        <mesh position={[2.3, -0.7, -0.4]}>
           <sphereGeometry args={[0.34, 48, 48]} />
           <ChromeMaterial />
         </mesh>
       </Float>
 
-      <GlassRing position={[1.1, 0.2, 0.2]} rotation={[1.2, -0.4, 0.3]} scale={0.85} />
+      <GlassRing position={[0.7, 0.3, 0.3]} rotation={[1.2, -0.4, 0.3]} scale={0.8} />
       <GlassRing position={[-2.4, 1.2, -1.4]} rotation={[0.4, 0.9, 0]} scale={0.55} />
 
       <Particles />
