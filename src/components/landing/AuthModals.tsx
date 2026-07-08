@@ -150,7 +150,7 @@ export function AuthModals() {
         const response = await fetch("/api/signup", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, email, phone: fullPhone, country }),
+          body: JSON.stringify({ name, email, phone: fullPhone, countryCode: country }),
         });
         const data = await response.json();
         if (response.ok && data.success) {
