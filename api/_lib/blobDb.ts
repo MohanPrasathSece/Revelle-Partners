@@ -1,24 +1,10 @@
 import { put, list } from "@vercel/blob";
-import fs from "fs";
-import path from "path";
-
-const LOCAL_DB_PATH = path.resolve(process.cwd(), ".users.json");
 
 export interface User {
   email: string;
   name: string;
   phone: string;
   createdAt: string;
-}
-
-// Memory cache of users for local testing
-let localUsersCache: User[] = [];
-if (fs.existsSync(LOCAL_DB_PATH)) {
-  try {
-    localUsersCache = JSON.parse(fs.readFileSync(LOCAL_DB_PATH, "utf-8"));
-  } catch (e) {
-    console.error("Failed to read local users db", e);
-  }
 }
 
 async function getBlobUrl(): Promise<string | null> {
@@ -41,32 +27,25 @@ export async function getUsers(): Promise<User[]> {
   try {
     const blobUrl = await getBlobUrl();
     if (!blobUrl) {
-      return localUsersCache;
+      return [];
     }
 
     const response = await fetch(blobUrl);
     if (!response.ok) {
-      console.warn(`Fetch users from Blob failed with status ${response.status}. Falling back to local cache.`);
-      return localUsersCache;
+      console.warn(`Fetch users from Blob failed with status ${response.status}.`);
+      return [];
     }
     return (await response.json()) as User[];
   } catch (e) {
-    console.error("Failed to fetch users from Vercel Blob, falling back to local cache:", e);
-    return localUsersCache;
+    console.error("Failed to fetch users from Vercel Blob:", e);
+    return [];
   }
 }
 
 export async function saveUsers(users: User[]): Promise<void> {
-  // Update local cache & file
-  localUsersCache = users;
-  try {
-    fs.writeFileSync(LOCAL_DB_PATH, JSON.stringify(users, null, 2), "utf-8");
-  } catch (e) {
-    console.error("Failed to write users to local file:", e);
-  }
-
   const token = process.env.BLOB_READ_WRITE_TOKEN;
   if (!token || token === "undefined" || token === "null" || token.trim() === "") {
+    console.error("BLOB_READ_WRITE_TOKEN not set in environment.");
     return;
   }
 
