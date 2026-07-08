@@ -4,9 +4,6 @@ import path from "path";
 
 const LOCAL_DB_PATH = path.resolve(process.cwd(), ".users.json");
 
-const BLOB_TOKEN = process.env.BLOB_READ_WRITE_TOKEN || "vercel_blob_rw_CMm1ef4iy5DCgoNg_5TmGKy9J78h0c6mbxFqRxTE4JAnPAN";
-const BLOB_STORE_ID = process.env.BLOB_STORE_ID || "store_CMm1ef4iy5DCgoNg";
-
 export interface User {
   email: string;
   name: string;
@@ -25,12 +22,12 @@ if (fs.existsSync(LOCAL_DB_PATH)) {
 }
 
 async function getBlobUrl(): Promise<string | null> {
-  const token = BLOB_TOKEN;
+  const token = process.env.BLOB_READ_WRITE_TOKEN;
   if (!token || token === "undefined" || token === "null" || token.trim() === "") {
     return null;
   }
   try {
-    const { blobs } = await list({ token, storeId: BLOB_STORE_ID });
+    const { blobs } = await list({ token, storeId: process.env.BLOB_STORE_ID });
     const userBlob = blobs.find((b) => b.pathname === "users.json");
     // For private blobs, use downloadUrl (which includes a short-lived token)
     return userBlob ? (userBlob.downloadUrl || userBlob.url) : null;
@@ -68,7 +65,7 @@ export async function saveUsers(users: User[]): Promise<void> {
     console.error("Failed to write users to local file:", e);
   }
 
-  const token = BLOB_TOKEN;
+  const token = process.env.BLOB_READ_WRITE_TOKEN;
   if (!token || token === "undefined" || token === "null" || token.trim() === "") {
     return;
   }
@@ -80,7 +77,7 @@ export async function saveUsers(users: User[]): Promise<void> {
       allowOverwrite: true,
       cacheControl: "no-store, no-cache, must-revalidate, max-age=0",
       token,
-      storeId: BLOB_STORE_ID,
+      storeId: process.env.BLOB_STORE_ID,
     });
   } catch (e) {
     console.error("Failed to put users to Vercel Blob:", e);
