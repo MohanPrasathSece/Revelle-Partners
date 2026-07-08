@@ -191,8 +191,8 @@ function LiveTradingChart() {
             const lowY = getPercentY(candle.low);
 
             const candleUp = candle.close >= candle.open;
-            const color = candleUp ? "var(--color-accent)" : "#EF4444";
-            const fill = candleUp ? "rgba(215, 255, 75, 0.25)" : "rgba(239, 68, 68, 0.25)";
+            const color = candleUp ? "#22c55e" : "#ef4444";
+            const fill = candleUp ? "rgba(34, 197, 94, 0.2)" : "rgba(239, 68, 68, 0.2)";
 
             return (
               <g key={idx}>
@@ -215,7 +215,6 @@ function LiveTradingChart() {
                   stroke={color}
                   strokeWidth="1.5"
                   rx="1.5"
-                  className="transition-all duration-300"
                 />
               </g>
             );
@@ -270,7 +269,7 @@ export default function LoggedIn() {
         <div aria-hidden className="pointer-events-none absolute -left-56 bottom-0 size-[520px] rounded-full opacity-[0.04] blur-[140px]" style={{ background: "var(--glow)" }} />
 
         {/* Section 1: Dashboard Hero with live trading widget */}
-        <section className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 pb-20 md:pb-24">
+        <section id="dashboard" className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 pb-20 md:pb-24">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
             {/* Left Content */}
@@ -318,7 +317,7 @@ export default function LoggedIn() {
         </section>
 
         {/* Section 2: Working Strategies */}
-        <section className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 pb-20 md:pb-24">
+        <section id="strategies" className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 pb-20 md:pb-24">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
             {strategies.map((strategy, idx) => (
               <motion.div
@@ -343,7 +342,7 @@ export default function LoggedIn() {
         </section>
 
         {/* Section 3: How We Improve Invested Amount */}
-        <section className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 pb-24">
+        <section id="compounding" className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-10 pb-24">
           <motion.div
             initial={{ opacity: 0, y: 40 }}
             whileInView={{ opacity: 1, y: 0 }}

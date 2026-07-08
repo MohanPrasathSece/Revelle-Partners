@@ -4,11 +4,13 @@ import { Menu, X } from "lucide-react";
 import { Magnetic } from "./MagneticButton";
 import { useAuth } from "../../App";
 import { AuthModals } from "./AuthModals";
+import { useLocation } from "react-router-dom";
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const { isAuthenticated, logout, setLoginOpen, setSignupOpen } = useAuth();
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
@@ -17,12 +19,19 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  const links = [
-    { label: "About", href: "/#about" },
-    { label: "Strategy", href: "/#strategy" },
-    { label: "Performance", href: "/#performance" },
-    { label: "Contact", href: "/#contact" },
-  ];
+  const links = pathname === "/loggedin"
+    ? [
+        { label: "Dashboard", href: "#dashboard" },
+        { label: "Strategies", href: "#strategies" },
+        { label: "Compounding", href: "#compounding" },
+        { label: "Contact", href: "#contact" },
+      ]
+    : [
+        { label: "About", href: "/#about" },
+        { label: "Strategy", href: "/#strategy" },
+        { label: "Performance", href: "/#performance" },
+        { label: "Contact", href: "/#contact" },
+      ];
 
   return (
     <>
@@ -56,16 +65,7 @@ export function Navbar() {
                 </a>
               </li>
             ))}
-            {isAuthenticated && (
-              <li>
-                <a
-                  href="/loggedin"
-                  className="link-underline text-[13px] font-semibold text-accent transition-colors duration-300"
-                >
-                  Client Portal
-                </a>
-              </li>
-            )}
+
           </ul>
 
           <div className="hidden items-center gap-6 md:flex">
@@ -77,14 +77,16 @@ export function Navbar() {
                 >
                   Log Out
                 </button>
-                <Magnetic strength={0.25}>
-                  <a
-                    href="/loggedin"
-                    className="inline-flex items-center rounded-full bg-accent px-5 py-2 text-[13px] font-semibold text-accent-foreground transition-transform duration-300 hover:scale-105"
-                  >
-                    View Portal
-                  </a>
-                </Magnetic>
+                {pathname !== "/loggedin" && (
+                  <Magnetic strength={0.25}>
+                    <a
+                      href="/loggedin"
+                      className="inline-flex items-center rounded-full bg-accent px-5 py-2 text-[13px] font-semibold text-accent-foreground transition-transform duration-300 hover:scale-105"
+                    >
+                      View Portal
+                    </a>
+                  </Magnetic>
+                )}
               </>
             ) : (
               <>
@@ -161,15 +163,17 @@ export function Navbar() {
                   <li className="my-3 border-t border-border/50"></li>
                   {isAuthenticated ? (
                     <>
-                      <li>
-                        <a
-                          href="/loggedin"
-                          onClick={() => setOpen(false)}
-                          className="block rounded-xl px-4 py-3 text-[14px] font-semibold text-accent hover:bg-accent/10 transition-colors"
-                        >
-                          Client Portal
-                        </a>
-                      </li>
+                      {pathname !== "/loggedin" && (
+                        <li>
+                          <a
+                            href="/loggedin"
+                            onClick={() => setOpen(false)}
+                            className="block rounded-xl px-4 py-3 text-[14px] font-semibold text-accent hover:bg-accent/10 transition-colors"
+                          >
+                            Client Portal
+                          </a>
+                        </li>
+                      )}
                       <li>
                         <button
                           onClick={() => {
