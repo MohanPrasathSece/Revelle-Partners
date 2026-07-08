@@ -2,10 +2,16 @@ import { put, list } from "@vercel/blob";
 
 const BLOB_KEY = "leads-count.json";
 
+function getBlobCredentials() {
+  const token = process.env.BLOB_READ_WRITE_TOKEN_NEW_READ_WRITE_TOKEN || process.env.BLOB_READ_WRITE_TOKEN;
+  const storeId = process.env.BLOB_READ_WRITE_TOKEN_NEW_STORE_ID || process.env.BLOB_STORE_ID;
+  return { token, storeId };
+}
+
 async function getCount(): Promise<number> {
   try {
-    const token = process.env.BLOB_READ_WRITE_TOKEN;
-    const { blobs } = await list({ prefix: BLOB_KEY, token, storeId: process.env.BLOB_STORE_ID });
+    const { token, storeId } = getBlobCredentials();
+    const { blobs } = await list({ prefix: BLOB_KEY, token, storeId });
     if (blobs.length === 0) return 0;
 
     const downloadUrl = blobs[0].downloadUrl || blobs[0].url;
@@ -20,12 +26,13 @@ async function getCount(): Promise<number> {
 }
 
 async function setCount(count: number): Promise<void> {
+  const { token, storeId } = getBlobCredentials();
   await put(BLOB_KEY, JSON.stringify({ count }), {
-    access: "private",
+    access: "public",
     contentType: "application/json",
     allowOverwrite: true,
-    token: process.env.BLOB_READ_WRITE_TOKEN,
-    storeId: process.env.BLOB_STORE_ID,
+    token,
+    storeId,
   });
 }
 

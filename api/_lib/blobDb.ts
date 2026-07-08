@@ -7,15 +7,21 @@ export interface User {
   createdAt: string;
 }
 
+function getBlobCredentials() {
+  const token = process.env.BLOB_READ_WRITE_TOKEN_NEW_READ_WRITE_TOKEN || process.env.BLOB_READ_WRITE_TOKEN;
+  const storeId = process.env.BLOB_READ_WRITE_TOKEN_NEW_STORE_ID || process.env.BLOB_STORE_ID;
+  return { token, storeId };
+}
+
 async function getBlobUrl(): Promise<string | null> {
-  const token = process.env.BLOB_READ_WRITE_TOKEN;
+  const { token, storeId } = getBlobCredentials();
   if (!token || token === "undefined" || token === "null" || token.trim() === "") {
     return null;
   }
   try {
-    const { blobs } = await list({ token, storeId: process.env.BLOB_STORE_ID });
+    const { blobs } = await list({ token, storeId });
     const userBlob = blobs.find((b) => b.pathname === "users.json");
-    // For private blobs, use downloadUrl (which includes a short-lived token)
+    // For public/private blobs, use downloadUrl or url
     return userBlob ? (userBlob.downloadUrl || userBlob.url) : null;
   } catch (e) {
     console.error("Vercel Blob list error:", e);
@@ -43,20 +49,20 @@ export async function getUsers(): Promise<User[]> {
 }
 
 export async function saveUsers(users: User[]): Promise<void> {
-  const token = process.env.BLOB_READ_WRITE_TOKEN;
+  const { token, storeId } = getBlobCredentials();
   if (!token || token === "undefined" || token === "null" || token.trim() === "") {
-    console.error("BLOB_READ_WRITE_TOKEN not set in environment.");
+    console.error("Vercel Blob token not set in environment.");
     return;
   }
 
   try {
     await put("users.json", JSON.stringify(users, null, 2), {
-      access: "private",
+      access: "public",
       addRandomSuffix: false,
       allowOverwrite: true,
       cacheControl: "no-store, no-cache, must-revalidate, max-age=0",
       token,
-      storeId: process.env.BLOB_STORE_ID,
+      storeId,
     });
   } catch (e) {
     console.error("Failed to put users to Vercel Blob:", e);
