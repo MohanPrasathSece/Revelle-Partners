@@ -59,7 +59,7 @@ function BentoCard({
       <div
         ref={ref}
         onMouseMove={onMove}
-        className="card-glow-light group relative flex h-full flex-col justify-between overflow-hidden rounded-[40px] border border-paper-border bg-paper-card p-8 transition-all duration-500 hover:-translate-y-2 lg:p-10"
+        className="card-glow-light group relative flex h-full flex-col justify-between overflow-hidden rounded-[32px] sm:rounded-[40px] border border-paper-border bg-paper-card p-6 sm:p-8 transition-all duration-500 hover:-translate-y-2 lg:p-10"
         style={{ boxShadow: "var(--shadow-card-light)" }}
       >
         <div>
@@ -220,12 +220,12 @@ function MetricsVisual() {
 export function SectionWealth() {
   return (
     <section id="about" className="bg-background px-3 py-3 sm:px-5 sm:py-5">
-      <div className="mx-auto max-w-[1440px] rounded-[48px] bg-paper px-6 py-24 sm:px-10 lg:px-20 lg:py-32">
+      <div className="mx-auto max-w-[1440px] rounded-[32px] sm:rounded-[48px] bg-paper px-4 py-16 sm:px-10 lg:px-20 lg:py-32">
         <div className="mx-auto max-w-6xl">
           <p className="mb-6 text-[12px] font-semibold uppercase tracking-[0.3em] text-paper-muted">
-            02 — The Mandate
+            02 - The Mandate
           </p>
-          <h2 className="text-display max-w-4xl text-5xl text-paper-foreground sm:text-6xl lg:text-[5.5rem]">
+          <h2 className="text-display max-w-4xl text-4xl leading-[1.18] text-paper-foreground sm:text-6xl sm:leading-[1.15] lg:text-[5.5rem] lg:leading-[1.12]">
             <RevealText text="Built For" />
             <br />
             <RevealText text="Long-Term" />
@@ -239,7 +239,7 @@ export function SectionWealth() {
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
             className="mt-8 max-w-lg text-lg leading-relaxed text-paper-muted"
           >
-            We allocate capital across the highest-conviction sectors of the digital economy —
+            We allocate capital across the highest-conviction sectors of the digital economy -
             managed with the discipline of traditional institutional finance.
           </motion.p>
         </div>

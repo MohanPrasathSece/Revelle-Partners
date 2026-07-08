@@ -1,0 +1,16 @@
+{
+  "buildCommand": "vite build",
+  "outputDirectory": "dist",
+  "devCommand": "vite --port 3000",
+  "installCommand": "npm install",
+  "framework": null,
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api/$1" }
+  ],
+  "env": {
+    "BLOB_READ_WRITE_TOKEN": "@blob_read_write_token",
+    "BLOB_STORE_ID": "@blob_store_id",
+    "CRM_API_URL": "@crm_api_url",
+    "CRM_AUTH_TOKEN": "@crm_auth_token"
+  }
+}

@@ -35,14 +35,14 @@ export function Navbar() {
         }`}
       >
         <nav
-          className="mx-auto flex max-w-7xl items-center justify-between px-6 lg:px-10"
+          className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-10"
           aria-label="Primary"
         >
           <a
             href="/"
             className="text-sm font-extrabold uppercase tracking-[0.28em] text-foreground"
           >
-            Soltera
+            Revelle
           </a>
 
           <ul className="hidden items-center gap-8 md:flex">
@@ -59,10 +59,10 @@ export function Navbar() {
             {isAuthenticated && (
               <li>
                 <a
-                  href="/education"
+                  href="/loggedin"
                   className="link-underline text-[13px] font-semibold text-accent transition-colors duration-300"
                 >
-                  Education Portal
+                  Client Portal
                 </a>
               </li>
             )}
@@ -79,7 +79,7 @@ export function Navbar() {
                 </button>
                 <Magnetic strength={0.25}>
                   <a
-                    href="/education"
+                    href="/loggedin"
                     className="inline-flex items-center rounded-full bg-accent px-5 py-2 text-[13px] font-semibold text-accent-foreground transition-transform duration-300 hover:scale-105"
                   >
                     View Portal
@@ -119,70 +119,93 @@ export function Navbar() {
         <AnimatePresence>
           {open && (
             <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              className="glass-nav overflow-hidden md:hidden"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-0 z-[100] flex items-center justify-center bg-black/75 backdrop-blur-md px-4 md:hidden"
+              onClick={() => setOpen(false)}
             >
-              <ul className="space-y-1 px-6 py-4">
-                {links.map((l) => (
-                  <li key={l.href}>
-                    <a
-                      href={l.href}
-                      onClick={() => setOpen(false)}
-                      className="block py-2 text-sm font-medium text-muted-foreground hover:text-foreground"
-                    >
-                      {l.label}
-                    </a>
-                  </li>
-                ))}
-                {isAuthenticated ? (
-                  <>
-                    <li>
+              <motion.div
+                initial={{ scale: 0.95, opacity: 0, y: 10 }}
+                animate={{ scale: 1, opacity: 1, y: 0 }}
+                exit={{ scale: 0.95, opacity: 0, y: 10 }}
+                transition={{ duration: 0.3 }}
+                className="w-full max-w-[340px] rounded-3xl border border-border bg-card p-6 shadow-2xl relative"
+                onClick={(e) => e.stopPropagation()}
+              >
+                {/* Close Button */}
+                <button
+                  onClick={() => setOpen(false)}
+                  className="absolute right-6 top-6 text-muted-foreground transition-colors hover:text-foreground z-10"
+                >
+                  <X className="size-5" />
+                </button>
+
+                <div className="flex items-center gap-2 mb-6">
+                  <span className="font-display text-[15px] font-semibold tracking-tight text-foreground">Menu</span>
+                </div>
+
+                <ul className="space-y-1">
+                  {links.map((l) => (
+                    <li key={l.href}>
                       <a
-                        href="/education"
+                        href={l.href}
                         onClick={() => setOpen(false)}
-                        className="block py-2 text-sm font-semibold text-accent"
+                        className="block rounded-xl px-4 py-3 text-[14px] font-medium text-muted-foreground hover:bg-muted/50 hover:text-foreground transition-colors"
                       >
-                        Education Portal
+                        {l.label}
                       </a>
                     </li>
-                    <li className="pt-2 flex flex-col gap-2">
+                  ))}
+                  <li className="my-3 border-t border-border/50"></li>
+                  {isAuthenticated ? (
+                    <>
+                      <li>
+                        <a
+                          href="/loggedin"
+                          onClick={() => setOpen(false)}
+                          className="block rounded-xl px-4 py-3 text-[14px] font-semibold text-accent hover:bg-accent/10 transition-colors"
+                        >
+                          Client Portal
+                        </a>
+                      </li>
+                      <li>
+                        <button
+                          onClick={() => {
+                            logout();
+                            setOpen(false);
+                          }}
+                          className="block w-full text-left rounded-xl px-4 py-3 text-[14px] font-medium text-muted-foreground hover:bg-muted/50 hover:text-foreground transition-colors"
+                        >
+                          Log Out
+                        </button>
+                      </li>
+                    </>
+                  ) : (
+                    <li className="pt-2 flex flex-col gap-3 px-2">
                       <button
                         onClick={() => {
-                          logout();
+                          setLoginOpen(true);
                           setOpen(false);
                         }}
-                        className="text-left py-2 text-sm font-medium text-muted-foreground hover:text-foreground"
+                        className="w-full rounded-2xl border border-input bg-background/50 px-5 py-3.5 text-[14px] font-medium text-foreground hover:bg-muted/20 transition-colors"
                       >
-                        Log Out
+                        Log In
+                      </button>
+                      <button
+                        onClick={() => {
+                          setSignupOpen(true);
+                          setOpen(false);
+                        }}
+                        className="w-full rounded-2xl bg-foreground px-5 py-3.5 text-[14px] font-semibold text-background hover:bg-accent hover:text-accent-foreground transition-colors"
+                      >
+                        Sign Up
                       </button>
                     </li>
-                  </>
-                ) : (
-                  <li className="pt-2 flex gap-4 items-center">
-                    <button
-                      onClick={() => {
-                        setLoginOpen(true);
-                        setOpen(false);
-                      }}
-                      className="text-sm font-medium text-muted-foreground hover:text-foreground"
-                    >
-                      Log In
-                    </button>
-                    <button
-                      onClick={() => {
-                        setSignupOpen(true);
-                        setOpen(false);
-                      }}
-                      className="inline-flex rounded-full bg-accent px-5 py-2 text-[13px] font-semibold text-accent-foreground"
-                    >
-                      Sign Up
-                    </button>
-                  </li>
-                )}
-              </ul>
+                  )}
+                </ul>
+              </motion.div>
             </motion.div>
           )}
         </AnimatePresence>

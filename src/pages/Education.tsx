@@ -164,10 +164,10 @@ const sections = [
     description:
       "Clarifying structural queries related to liquidity, audit certifications, compliance structures, and client support.",
     points: [
-      "What is the minimum lock-up period? Soltera provides monthly liquidity windows for most portfolios.",
+      "What is the minimum lock-up period? Revelle provides monthly liquidity windows for most portfolios.",
       "How is custody audited? Independent third-party security auditors verify custody vaults monthly.",
-      "Are portfolios tax-optimized? Yes, Soltera utilizes tax-loss harvesting mechanisms where legally viable.",
-      "What jurisdictions are supported? Soltera accommodates accredited investors from primary OECD regions.",
+      "Are portfolios tax-optimized? Yes, Revelle utilizes tax-loss harvesting mechanisms where legally viable.",
+      "What jurisdictions are supported? Revelle accommodates accredited investors from primary OECD regions.",
     ],
   },
 ];
@@ -296,7 +296,7 @@ export default function Education() {
           style={{ background: "var(--accent)" }}
         />
 
-        <div className="mx-auto max-w-7xl px-6 lg:px-10">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
           {/* Header section */}
           <div className="relative pt-16 pb-12">
             <motion.div
@@ -313,7 +313,7 @@ export default function Education() {
                 <span className="text-muted-foreground">Market Research.</span>
               </h1>
               <p className="mt-6 max-w-xl text-[16px] leading-relaxed text-muted-foreground">
-                Welcome to Soltera's premium educational portal. Below is your custom institutional
+                Welcome to Revelle's premium educational portal. Below is your custom institutional
                 sandbox, incorporating blockchain topics, live-simulated order book calculators, and
                 interactive widgets.
               </p>
@@ -327,7 +327,7 @@ export default function Education() {
               initial={{ opacity: 0, y: 32 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.85, delay: 0.1 }}
-              className="relative flex flex-col justify-between overflow-hidden rounded-[32px] border border-border bg-card p-6 md:p-8"
+              className="relative flex flex-col justify-between overflow-hidden rounded-[24px] sm:rounded-[32px] border border-border bg-card p-4 sm:p-6 md:p-8"
               style={{ boxShadow: "var(--shadow-card)" }}
             >
               <div>
@@ -419,6 +419,10 @@ export default function Education() {
                           )
                         }
                         onMouseLeave={() => setCandleTooltip(null)}
+                        onClick={() => {
+                          const tooltipText = `Time: ${candle.t} | O: $${candle.o.toLocaleString()} | C: $${candle.c.toLocaleString()} | Vol: ${candle.v}`;
+                          setCandleTooltip(candleTooltip === tooltipText ? null : tooltipText);
+                        }}
                       >
                         {/* Shadow Wick line */}
                         <line
@@ -461,122 +465,33 @@ export default function Education() {
               </div>
             </motion.div>
 
-            {/* Widget 2: Simulated Trading Calculator */}
+            {/* Simplified Risk Advisory Card replacing Leverage Simulator */}
             <motion.div
               initial={{ opacity: 0, y: 32 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.85, delay: 0.18 }}
-              className="relative flex flex-col justify-between overflow-hidden rounded-[32px] border border-border bg-card p-6 md:p-8"
+              className="relative flex flex-col justify-between overflow-hidden rounded-[24px] sm:rounded-[32px] border border-border bg-card p-6 sm:p-8"
               style={{ boxShadow: "var(--shadow-card)" }}
             >
               <div>
-                <div className="flex items-center gap-3 border-b border-border pb-4">
-                  <Calculator className="size-4 text-accent" />
-                  <h3 className="font-mono text-[13px] font-bold uppercase tracking-wider text-foreground">
-                    Leverage Simulator
-                  </h3>
-                </div>
-
-                <div className="mt-6 grid grid-cols-3 gap-2">
-                  {["BTC", "ETH", "SOL"].map((asset) => (
-                    <button
-                      key={asset}
-                      onClick={() => setTradeAsset(asset)}
-                      className={`rounded-xl border py-2.5 font-mono text-xs font-bold transition-all duration-300 ${
-                        tradeAsset === asset
-                          ? "border-accent bg-accent/10 text-accent"
-                          : "border-border text-muted-foreground hover:text-foreground"
-                      }`}
-                    >
-                      {asset}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Buy / Sell Toggle */}
-                <div className="mt-4 flex rounded-xl border border-border p-1 bg-background/30">
-                  <button
-                    onClick={() => setTradeType("BUY")}
-                    className={`w-1/2 rounded-lg py-2 text-center text-xs font-bold transition-all duration-300 ${
-                      tradeType === "BUY"
-                        ? "bg-[#D7FF4B] text-background"
-                        : "text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    LONG
-                  </button>
-                  <button
-                    onClick={() => setTradeType("SELL")}
-                    className={`w-1/2 rounded-lg py-2 text-center text-xs font-bold transition-all duration-300 ${
-                      tradeType === "SELL"
-                        ? "bg-[#FF5E5E] text-foreground"
-                        : "text-muted-foreground hover:text-foreground"
-                    }`}
-                  >
-                    SHORT
-                  </button>
-                </div>
-
-                {/* Leverage Slider */}
-                <div className="mt-5">
-                  <div className="flex items-center justify-between text-xs text-muted-foreground font-mono">
-                    <span>LEVERAGE</span>
-                    <span className="font-bold text-foreground">{leverage}x</span>
-                  </div>
-                  <input
-                    type="range"
-                    min="1"
-                    max="100"
-                    value={leverage}
-                    onChange={(e) => setLeverage(parseInt(e.target.value))}
-                    className="mt-2.5 h-1 w-full cursor-pointer appearance-none rounded-lg bg-border accent-accent"
-                  />
-                </div>
-
-                {/* Size Input */}
-                <div className="mt-5">
-                  <div className="flex items-center justify-between text-xs text-muted-foreground font-mono">
-                    <span>POSITION SIZE</span>
-                    <span className="font-bold text-foreground">{tradeAsset}</span>
-                  </div>
-                  <input
-                    type="number"
-                    value={tradeSize}
-                    onChange={(e) => setTradeSize(e.target.value)}
-                    className="mt-2 w-full rounded-xl border border-border bg-background px-4 py-3 font-mono text-sm text-foreground focus:border-accent/40 focus:outline-none"
-                    placeholder="Size"
-                    step="0.01"
-                  />
-                </div>
+                <span className="font-mono text-[10px] font-bold text-accent uppercase tracking-wider">Risk Management Advisory</span>
+                <h3 className="text-xl font-bold tracking-tight text-foreground mt-3 mb-4">Leverage &amp; Capital Hedging</h3>
+                <p className="text-[14px] leading-relaxed text-muted-foreground">
+                  Leverage allows institutional accounts to expand target market exposure. While it acts as a mechanism to amplify positive compounding yields, it is highly sensitive to rapid downside spikes.
+                </p>
+                <p className="text-[14px] leading-relaxed text-muted-foreground mt-4">
+                  Revelle Partners enforces strict multi-signature collateralized thresholds and algorithmic hedge protocols to protect your core digital assets from sudden liquidations, ensuring sustained risk-adjusted growth.
+                </p>
               </div>
-
-              {/* Calculated Results */}
-              <div className="mt-6 rounded-2xl bg-background/50 border border-border p-4 font-mono text-xs space-y-2">
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Position Value:</span>
-                  <span className="font-semibold text-foreground">
-                    ${Math.round(positionValue).toLocaleString()}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Required Margin:</span>
-                  <span className="font-semibold text-foreground">
-                    ${Math.round(marginRequired).toLocaleString()}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-muted-foreground">Est. Liquidation Price:</span>
-                  <span className="font-semibold text-[#FF5E5E]">
-                    ${Math.round(liqPrice).toLocaleString()}
-                  </span>
-                </div>
+              <div className="mt-8 border-t border-border/40 pt-4 text-[11px] text-muted-foreground/60 font-mono">
+                Leverage Exposure Limits: Managed (1x to 3x max)
               </div>
             </motion.div>
           </div>
 
           {/* Mac-Style browser tabs section */}
           <div
-            className="rounded-[32px] border border-border bg-card overflow-hidden shadow-2xl"
+            className="rounded-[24px] sm:rounded-[32px] border border-border bg-card overflow-hidden shadow-2xl"
             style={{ boxShadow: "var(--shadow-card)" }}
           >
             {/* Mac browser window header */}
@@ -593,80 +508,50 @@ export default function Education() {
               <div className="w-12" /> {/* Spacer */}
             </div>
 
-            {/* Main browser structure */}
-            <div className="grid lg:grid-cols-[280px_1fr]">
-              {/* Left sidebar directory matching Mac UI */}
-              <div className="border-r border-border bg-background/15 py-6">
-                <div className="px-6 mb-4">
-                  <span className="text-[10px] font-semibold uppercase tracking-[0.25em] text-muted-foreground">
-                    Research Modules
-                  </span>
+            {/* Main window content (Single, simplified description) */}
+            <div className="p-6 sm:p-8 md:p-12 bg-card-glow relative">
+              <div className="max-w-3xl">
+                <span className="font-mono text-xs font-bold text-accent uppercase tracking-widest">
+                  Market Intelligence Brief
+                </span>
+                <h2 className="text-display mt-3 text-3xl text-foreground sm:text-4xl">
+                  Digital Asset Portfolio Research
+                </h2>
+                <p className="mt-6 text-[15px] leading-relaxed text-muted-foreground">
+                  Our research framework covers the fundamental evolution of decentralized ledger networks, automated order book execution algorithms, and risk containment.
+                </p>
+
+                <div className="mt-8 border-t border-border/80 pt-8">
+                  <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-foreground">
+                    Core Intelligence Pillars:
+                  </h4>
+                  <ul className="mt-4 space-y-4">
+                    <li className="flex items-start gap-3">
+                      <span className="mt-1 flex size-5 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
+                        <Check className="size-3" />
+                      </span>
+                      <span className="text-[14.5px] leading-relaxed text-muted-foreground">
+                        <strong>On-chain Analysis:</strong> Evaluating fee dynamics, developer momentum, and liquidity velocity.
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="mt-1 flex size-5 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
+                        <Check className="size-3" />
+                      </span>
+                      <span className="text-[14.5px] leading-relaxed text-muted-foreground">
+                        <strong>Algorithmic Execution:</strong> Utilizing smart routing to mitigate transaction slippage.
+                      </span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <span className="mt-1 flex size-5 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
+                        <Check className="size-3" />
+                      </span>
+                      <span className="text-[14.5px] leading-relaxed text-muted-foreground">
+                        <strong>Custodial Audits:</strong> Monthly multi-sig vault checks verified by independent auditors.
+                      </span>
+                    </li>
+                  </ul>
                 </div>
-                <nav className="space-y-1 px-3">
-                  {sections.map((section) => {
-                    const Icon = section.icon;
-                    const isActive = activeTab === section.id;
-                    return (
-                      <button
-                        key={section.id}
-                        onClick={() => setActiveTab(section.id)}
-                        className={`flex w-full items-center justify-between rounded-xl px-4 py-3 text-left transition-all duration-300 ${
-                          isActive
-                            ? "bg-accent/10 text-accent font-semibold"
-                            : "text-muted-foreground hover:bg-border/30 hover:text-foreground"
-                        }`}
-                      >
-                        <div className="flex items-center gap-3.5">
-                          <Icon className="size-4 shrink-0" />
-                          <span className="text-[13.5px] tracking-tight">{section.title}</span>
-                        </div>
-                        {isActive && <CircleDot className="size-2 text-accent" />}
-                      </button>
-                    );
-                  })}
-                </nav>
-              </div>
-
-              {/* Right Content area */}
-              <div className="p-8 md:p-12 bg-card-glow min-h-[500px] relative">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={activeTab}
-                    initial={{ opacity: 0, x: 15 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    exit={{ opacity: 0, x: -15 }}
-                    transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-                    className="max-w-3xl"
-                  >
-                    <span className="font-mono text-xs font-bold text-accent uppercase tracking-widest">
-                      {activeSection.tagline}
-                    </span>
-                    <h2 className="text-display mt-3 text-3xl text-foreground sm:text-4xl">
-                      {activeSection.title}
-                    </h2>
-                    <p className="mt-6 text-[15px] leading-relaxed text-muted-foreground">
-                      {activeSection.description}
-                    </p>
-
-                    <div className="mt-8 border-t border-border/80 pt-8">
-                      <h4 className="font-mono text-xs font-bold uppercase tracking-wider text-foreground">
-                        Core Principles:
-                      </h4>
-                      <ul className="mt-4 space-y-4">
-                        {activeSection.points.map((point, index) => (
-                          <li key={index} className="flex items-start gap-3">
-                            <span className="mt-1 flex size-5 shrink-0 items-center justify-center rounded-full bg-accent/10 text-accent">
-                              <Check className="size-3" />
-                            </span>
-                            <span className="text-[14.5px] leading-relaxed text-muted-foreground">
-                              {point}
-                            </span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </motion.div>
-                </AnimatePresence>
               </div>
             </div>
           </div>
@@ -678,7 +563,7 @@ export default function Education() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-              className="relative rounded-[40px] border border-border bg-card p-8 lg:p-12 overflow-hidden"
+              className="relative rounded-[32px] sm:rounded-[40px] border border-border bg-card p-6 sm:p-8 lg:p-12 overflow-hidden"
               style={{ boxShadow: "var(--shadow-card)" }}
             >
               {/* Background glow decoration */}

@@ -10,7 +10,7 @@ export default function TermsConditions() {
     {
       title: "1. Acceptance of Terms",
       content:
-        "By accessing and utilizing the Soltera Finance website, research portal, and educational documents, you acknowledge that you have read, understood, and agreed to be bound by these Terms & Conditions. If you do not accept these terms, you must immediately terminate access to our portals.",
+        "By accessing and utilizing the Revelle Partners website, research portal, and educational documents, you acknowledge that you have read, understood, and agreed to be bound by these Terms & Conditions. If you do not accept these terms, you must immediately terminate access to our portals.",
     },
     {
       title: "2. Eligibility",
@@ -40,12 +40,12 @@ export default function TermsConditions() {
     {
       title: "7. Intellectual Property",
       content:
-        "All content, graphics, charts, research whitepapers, branding, logos, and custom illustrations displayed on the website are the exclusive property of Soltera Finance and are protected by applicable trademark and copyright laws. You are prohibited from republishing materials without our consent.",
+        "All content, graphics, charts, research whitepapers, branding, logos, and custom illustrations displayed on the website are the exclusive property of Revelle Partners and are protected by applicable trademark and copyright laws. You are prohibited from republishing materials without our consent.",
     },
     {
       title: "8. Accuracy of Information",
       content:
-        "Although Soltera strives to provide accurate on-chain metrics, market indicators, and educational explanations, all contents are provided on an 'as-is' and 'as-available' basis without warranties of completeness or real-time precision.",
+        "Although Revelle strives to provide accurate on-chain metrics, market indicators, and educational explanations, all contents are provided on an 'as-is' and 'as-available' basis without warranties of completeness or real-time precision.",
     },
     {
       title: "9. No Financial Advice",
@@ -115,7 +115,7 @@ export default function TermsConditions() {
     {
       title: "22. Contact Information",
       content:
-        "If you have any questions or require clarification regarding these Terms & Conditions, please contact us at compliance@soltera.finance.",
+        "If you have any questions or require clarification regarding these Terms & Conditions, please contact us at compliance@revellepartners.com.",
     },
   ];
 
@@ -126,7 +126,7 @@ export default function TermsConditions() {
       <Navbar />
 
       <main className="grain min-h-screen bg-background text-foreground pt-36 pb-24">
-        <div className="mx-auto max-w-3xl px-6">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}

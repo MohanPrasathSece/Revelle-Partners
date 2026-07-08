@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000">
+  <rect width="1000" height="1000" fill="transparent"/>
+  <g transform="translate(500, 500)">
+    <!-- Top crystal -->
+    <path d="M 0 -350 L 200 -50 L 0 50 L -200 -50 Z" fill="#000000" />
+    <!-- Bottom crystal -->
+    <path d="M 0 350 L 200 0 L 0 100 L -200 0 Z" fill="#000000" />
+  </g>
+</svg>

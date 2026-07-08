@@ -1,8 +1,18 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
+
+/** Scrolls to top on every route change */
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+  }, [pathname]);
+  return null;
+}
 import { Toaster } from "sonner";
 import Home from "./pages/Home";
 import Education from "./pages/Education";
+import LoggedIn from "./pages/LoggedIn";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsConditions from "./pages/TermsConditions";
 
@@ -42,27 +52,27 @@ export default function App() {
 
   // Check auth state on mount
   useEffect(() => {
-    const storedUser = localStorage.getItem("soltera_user");
+    const storedUser = localStorage.getItem("revelle_user");
     if (storedUser) {
       try {
         const parsed = JSON.parse(storedUser);
         setUser(parsed);
         setIsAuthenticated(true);
       } catch (e) {
-        localStorage.removeItem("soltera_user");
+        localStorage.removeItem("revelle_user");
       }
     }
   }, []);
 
   const login = (userData: User) => {
-    localStorage.setItem("soltera_user", JSON.stringify(userData));
+    localStorage.setItem("revelle_user", JSON.stringify(userData));
     setUser(userData);
     setIsAuthenticated(true);
     setLoginOpen(false);
   };
 
   const logout = () => {
-    localStorage.removeItem("soltera_user");
+    localStorage.removeItem("revelle_user");
     setUser(null);
     setIsAuthenticated(false);
   };
@@ -70,12 +80,12 @@ export default function App() {
   // Protected Route implementation
   const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
     useEffect(() => {
-      if (!isAuthenticated && !localStorage.getItem("soltera_user")) {
+      if (!isAuthenticated && !localStorage.getItem("revelle_user")) {
         setLoginOpen(true);
       }
     }, [isAuthenticated]);
 
-    if (!isAuthenticated && !localStorage.getItem("soltera_user")) {
+    if (!isAuthenticated && !localStorage.getItem("revelle_user")) {
       return <Navigate to="/" replace />;
     }
     return <>{children}</>;
@@ -95,8 +105,17 @@ export default function App() {
       }}
     >
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route
+            path="/loggedin"
+            element={
+              <ProtectedRoute>
+                <LoggedIn />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/education"
             element={

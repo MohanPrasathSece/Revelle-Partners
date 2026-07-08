@@ -5,7 +5,7 @@ export function Footer() {
     <footer className="bg-background py-12 border-t border-border/10">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-6 sm:flex-row lg:px-10">
         <Link to="/" className="text-sm font-extrabold uppercase tracking-[0.28em] text-foreground">
-          Soltera
+          Revelle
         </Link>
 
         {/* Legal navigation links */}
@@ -26,7 +26,7 @@ export function Footer() {
         </div>
 
         <p className="text-[13px] text-muted-foreground">
-          © {new Date().getFullYear()} Soltera Finance. All rights reserved.
+          © {new Date().getFullYear()} Revelle Partners. All rights reserved.
         </p>
       </div>
     </footer>

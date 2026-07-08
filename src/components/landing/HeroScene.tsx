@@ -1,6 +1,6 @@
 import { useRef, useMemo } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
-import { Float, Environment } from "@react-three/drei";
+import { Float } from "@react-three/drei";
 import * as THREE from "three";
 
 function ChromeMaterial() {
@@ -148,11 +148,12 @@ export default function HeroScene() {
       style={{ background: "transparent" }}
       aria-hidden
     >
-      <ambientLight intensity={0.25} />
-      <directionalLight position={[4, 6, 4]} intensity={1.6} color="#ffffff" />
-      <directionalLight position={[-5, -2, 2]} intensity={0.5} color="#d8d8d8" />
+      <ambientLight intensity={0.6} />
+      <directionalLight position={[4, 6, 4]} intensity={2.2} color="#ffffff" />
+      <directionalLight position={[-5, -2, 2]} intensity={0.9} color="#e8e8e8" />
+      <pointLight position={[0, 3, 3]} intensity={1.4} color="#ffffff" distance={18} />
+      <hemisphereLight args={["#ffffff", "#cccccc", 0.5]} />
       <SceneGroup />
-      <Environment preset="studio" />
       <fog attach="fog" args={["#050505", 9, 18]} />
     </Canvas>
   );

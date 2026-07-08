@@ -47,8 +47,8 @@
   /* Subtle glow */
   --color-glow: var(--glow);
 
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Sora", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Sora", ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
@@ -199,6 +199,15 @@
 @utility marquee-mask {
   mask-image: linear-gradient(to right, transparent, black 12%, black 88%, transparent);
 }
+
+@utility scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
 
 @utility link-underline {
   position: relative;

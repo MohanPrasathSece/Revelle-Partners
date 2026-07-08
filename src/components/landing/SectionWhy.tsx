@@ -59,7 +59,7 @@ function GlobalNetwork() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-10% 0px" }}
       transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-      className="relative mt-24 overflow-hidden rounded-[40px] border border-border bg-secondary p-8 sm:p-12"
+      className="relative mt-12 sm:mt-24 overflow-hidden rounded-[32px] sm:rounded-[40px] border border-border bg-secondary p-6 sm:p-12"
     >
       <div className="mb-8 flex flex-wrap items-end justify-between gap-4">
         <div>
@@ -70,7 +70,7 @@ function GlobalNetwork() {
             Capital deployed across 6 continents.
           </h3>
         </div>
-        <div className="flex gap-8">
+        <div className="flex flex-wrap gap-x-6 gap-y-4 sm:gap-8">
           {[
             ["$2.4B+", "Assets managed"],
             ["40+", "Markets"],
@@ -144,7 +144,7 @@ export function SectionWhy() {
   return (
     <section
       id="performance"
-      className="grain relative overflow-hidden bg-background py-28 lg:py-40"
+      className="grain relative overflow-hidden bg-background py-16 sm:py-28 lg:py-40"
     >
       {/* Soft glowing circles */}
       <div
@@ -158,17 +158,17 @@ export function SectionWhy() {
         style={{ background: "var(--glow)" }}
       />
 
-      <div className="relative mx-auto max-w-7xl px-6 lg:px-10">
-        <div className="grid gap-20 lg:grid-cols-2">
-          {/* Left — headline */}
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-10">
+        <div className="grid gap-12 lg:gap-20 lg:grid-cols-2">
+          {/* Left - headline */}
           <div className="lg:sticky lg:top-32 lg:self-start" id="strategy">
             <p className="mb-6 text-[12px] font-semibold uppercase tracking-[0.3em] text-muted-foreground">
-              03 — The Process
+              03 - The Process
             </p>
-            <h2 className="text-display text-5xl text-foreground sm:text-6xl lg:text-[5.5rem]">
+            <h2 className="text-display text-4xl text-foreground sm:text-6xl lg:text-[5.5rem]">
               <RevealText text="Why Investors" />
               <br />
-              <RevealText text="Choose Soltera." className="text-muted-foreground" />
+              <RevealText text="Choose Revelle." className="text-muted-foreground" />
             </h2>
             <motion.p
               initial={{ opacity: 0, y: 20 }}
@@ -177,12 +177,12 @@ export function SectionWhy() {
               transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 0.3 }}
               className="mt-8 max-w-md text-lg leading-relaxed text-muted-foreground"
             >
-              A disciplined, transparent investment process — engineered for institutions, refined
+              A disciplined, transparent investment process - engineered for institutions, refined
               for private investors.
             </motion.p>
           </div>
 
-          {/* Right — timeline */}
+          {/* Right - timeline */}
           <div ref={trackRef} className="relative pl-10">
             <div aria-hidden className="absolute left-[11px] top-2 bottom-2 w-px bg-border" />
             <div

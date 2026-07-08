@@ -10,12 +10,12 @@ export default function PrivacyPolicy() {
     {
       title: "1. Introduction",
       content:
-        "Welcome to Soltera Finance. We are committed to protecting your personal information and your right to privacy. If you have any questions or concerns about our policy, or our practices with regards to your personal information, please contact us at compliance@soltera.finance.",
+        "Welcome to Revelle Partners. We are committed to protecting your personal information and your right to privacy. If you have any questions or concerns about our policy, or our practices with regards to your personal information, please contact us at compliance@revellepartners.com.",
     },
     {
       title: "2. Definitions",
       content:
-        "In this Privacy Policy, 'Personal Information' refers to any information relating to an identified or identifiable natural person. 'Service' refers to the Soltera Finance website, educational portal, and client onboarding desk.",
+        "In this Privacy Policy, 'Personal Information' refers to any information relating to an identified or identifiable natural person. 'Service' refers to the Revelle Partners website, educational portal, and client onboarding desk.",
     },
     {
       title: "3. Information We Collect",
@@ -116,7 +116,7 @@ export default function PrivacyPolicy() {
       <Navbar />
 
       <main className="grain min-h-screen bg-background text-foreground pt-36 pb-24">
-        <div className="mx-auto max-w-3xl px-6">
+        <div className="mx-auto max-w-3xl px-4 sm:px-6">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
             animate={{ opacity: 1, y: 0 }}

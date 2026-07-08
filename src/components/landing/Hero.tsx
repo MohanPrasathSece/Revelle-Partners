@@ -1,19 +1,11 @@
-import { lazy, Suspense, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowDown, ArrowUpRight } from "lucide-react";
 import { Magnetic } from "./MagneticButton";
 import { RevealText } from "./RevealText";
 
-const HeroScene = lazy(() => import("./HeroScene"));
+import MetallicPaint from "./MetallicPaint";
 
 export function Hero() {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!reduced) setMounted(true);
-  }, []);
-
   return (
     <section
       id="top"
@@ -31,16 +23,53 @@ export function Hero() {
         style={{ background: "var(--glow)" }}
       />
 
-      {/* 3D scene — right side */}
-      {mounted && (
-        <div className="absolute inset-y-0 right-0 z-0 hidden w-[58%] md:block">
-          <Suspense fallback={null}>
-            <HeroScene />
-          </Suspense>
+      {/* RIGHT: Metallic Paint Canvas */}
+      <motion.div
+        initial={{ opacity: 0, scale: 1.04 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
+        className="absolute inset-y-0 right-0 z-0 hidden w-[45%] lg:block"
+        aria-hidden
+      >
+        <div className="absolute inset-0 flex items-center justify-center p-20">
+          <MetallicPaint
+            imageSrc="/revelle-mask.svg"
+            seed={42}
+            scale={4}
+            patternSharpness={1.2}
+            noiseScale={0.5}
+            speed={0.3}
+            liquid={0.75}
+            mouseAnimation={false}
+            brightness={1.5}
+            contrast={1.2}
+            refraction={0.015}
+            blur={0.015}
+            chromaticSpread={2}
+            fresnel={1}
+            angle={0}
+            waveAmplitude={1}
+            distortion={1}
+            contour={0.2}
+            lightColor="#ffffff"
+            darkColor="#050505"
+            tintColor="#D7FF4B"
+          />
         </div>
-      )}
+        {/* Left-edge gradient so text stays readable */}
+        <div className="absolute inset-y-0 left-0 w-2/5 bg-gradient-to-r from-background via-background/70 to-transparent pointer-events-none" />
+        {/* Bottom vignette */}
+        <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-background to-transparent pointer-events-none" />
+        {/* Subtle lime glow at bottom */}
+        <motion.div
+          animate={{ opacity: [0.12, 0.22, 0.12] }}
+          transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute bottom-0 right-0 h-48 w-2/3 blur-3xl pointer-events-none"
+          style={{ background: "oklch(0.93 0.208 122 / 18%)" }}
+        />
+      </motion.div>
 
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-6 pt-28 pb-20 lg:px-10">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-10 pt-28 pb-20">
         <div className="max-w-3xl">
           <motion.p
             initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
@@ -52,10 +81,10 @@ export function Hero() {
               <span className="animate-pulse-ring absolute inline-flex size-full rounded-full bg-accent" />
               <span className="relative inline-flex size-1.5 rounded-full bg-accent" />
             </span>
-            Managed digital asset funds — institutional grade
+            Managed digital asset funds - institutional grade
           </motion.p>
 
-          <h1 className="text-display text-[13.5vw] text-foreground sm:text-7xl lg:text-[6.5rem]">
+          <h1 className="text-display text-[11vw] text-foreground sm:text-7xl lg:text-[6.5rem]">
             <RevealText text="Invest Beyond" delay={0.5} />
             <br />
             <RevealText
@@ -71,7 +100,7 @@ export function Hero() {
             transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1], delay: 1.15 }}
             className="mt-8 max-w-md text-lg leading-relaxed text-muted-foreground"
           >
-            Soltera manages diversified crypto investment funds and blockchain ventures for
+            Revelle manages diversified crypto investment funds and blockchain ventures for
             accredited investors and institutions.
           </motion.p>
 

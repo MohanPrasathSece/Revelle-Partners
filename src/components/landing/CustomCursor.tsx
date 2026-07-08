@@ -11,6 +11,11 @@ export function CustomCursor() {
     if (!fine || reduced) return;
     setEnabled(true);
 
+    const onTouchStart = () => {
+      setEnabled(false);
+    };
+    window.addEventListener("touchstart", onTouchStart, { once: true });
+
     let x = -100;
     let y = -100;
     let rx = -100;
@@ -43,6 +48,7 @@ export function CustomCursor() {
     raf = requestAnimationFrame(loop);
     return () => {
       window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("touchstart", onTouchStart);
       cancelAnimationFrame(raf);
     };
   }, []);
