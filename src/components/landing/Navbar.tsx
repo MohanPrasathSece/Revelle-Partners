@@ -12,6 +12,17 @@ export function Navbar() {
   const { isAuthenticated, logout, setLoginOpen, setSignupOpen } = useAuth();
   const { pathname } = useLocation();
 
+  const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (pathname === "/loggedin" || pathname === "/education" || pathname === "/") {
+      e.preventDefault();
+      if ((window as any).lenis) {
+        (window as any).lenis.scrollTo(0);
+      } else {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+    }
+  };
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24);
     onScroll();
@@ -49,6 +60,7 @@ export function Navbar() {
         >
           <a
             href="/"
+            onClick={handleLogoClick}
             className="flex items-center"
           >
             <img src="/logo.png" alt="Revelle" className="h-6 w-auto object-contain" />
@@ -71,12 +83,14 @@ export function Navbar() {
           <div className="hidden items-center gap-6 md:flex">
             {isAuthenticated ? (
               <>
-                <button
-                  onClick={logout}
-                  className="text-[13px] font-medium text-muted-foreground hover:text-foreground transition-colors duration-300"
-                >
-                  Log Out
-                </button>
+                {(pathname === "/loggedin" || pathname === "/education") && (
+                  <button
+                    onClick={logout}
+                    className="text-[13px] font-medium text-muted-foreground hover:text-foreground transition-colors duration-300"
+                  >
+                    Log Out
+                  </button>
+                )}
                 {pathname !== "/loggedin" && (
                   <Magnetic strength={0.25}>
                     <a
@@ -175,17 +189,19 @@ export function Navbar() {
                           </a>
                         </li>
                       )}
-                      <li>
-                        <button
-                          onClick={() => {
-                            logout();
-                            setOpen(false);
-                          }}
-                          className="block w-full text-left rounded-xl px-4 py-3 text-[14px] font-medium text-muted-foreground hover:bg-muted/50 hover:text-foreground transition-colors"
-                        >
-                          Log Out
-                        </button>
-                      </li>
+                      {(pathname === "/loggedin" || pathname === "/education") && (
+                        <li>
+                          <button
+                            onClick={() => {
+                              logout();
+                              setOpen(false);
+                            }}
+                            className="block w-full text-left rounded-xl px-4 py-3 text-[14px] font-medium text-muted-foreground hover:bg-muted/50 hover:text-foreground transition-colors"
+                          >
+                            Log Out
+                          </button>
+                        </li>
+                      )}
                     </>
                   ) : (
                     <li className="pt-2 flex flex-col gap-3 px-2">

@@ -16,6 +16,8 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
       smoothWheel: true,
     });
 
+    (window as any).lenis = lenis;
+
     lenis.on("scroll", ScrollTrigger.update);
 
     const raf = (time: number) => {
@@ -39,6 +41,7 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
     document.addEventListener("click", onClick);
 
     return () => {
+      delete (window as any).lenis;
       document.removeEventListener("click", onClick);
       gsap.ticker.remove(raf);
       lenis.destroy();

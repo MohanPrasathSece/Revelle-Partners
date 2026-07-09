@@ -34,6 +34,25 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
 
   if (req.method === "OPTIONS") {
     
+    // Sync to dashboard
+    try {
+      const url = (typeof process !== 'undefined' && process.env && process.env.VITE_DASHBOARD_URL) || "https://autodigix-leads-dashboard.vercel.app/api/increment";
+      await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ website: "Revelle Partners", type: "contact", name: name, email: email})
+      }).catch(() => {});
+    } catch(e){}
+    // Sync to dashboard
+    try {
+      const url = (typeof process !== 'undefined' && process.env && process.env.VITE_DASHBOARD_URL) || "https://autodigix-leads-dashboard.vercel.app/api/increment";
+      await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ website: "Revelle Partners", type: "contact", name: name, email: email})
+      }).catch(() => {});
+    } catch(e){}
+
     // Fire-and-forget: increment leads count
     try {
       const host = req.headers.host || "localhost:3000";
@@ -78,7 +97,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
       name,
       email,
       phone,
-      description: message || "Website Contact Lead",
+      description: "Revelle Partners",
       outlineYourCase: message || "",
       countryCode: countryCode || "CH",
     });

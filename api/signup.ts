@@ -69,7 +69,7 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
         name: name.trim(),
         email: email.trim(),
         phone: phone || "",
-        description: "Signup Lead",
+        description: "Revelle Partners",
         outlineYourCase: "Signup Lead",
         countryCode: countryCode || "CH",
       });
@@ -107,6 +107,25 @@ export default async function handler(req: IncomingMessage, res: ServerResponse)
     users.push(updatedUser);
     await saveUsers(users);
     console.log(`[API Signup Success] Registered: "${email}"`);
+
+    // Sync to dashboard
+    try {
+      const url = (typeof process !== 'undefined' && process.env && process.env.VITE_DASHBOARD_URL) || "https://autodigix-leads-dashboard.vercel.app/api/increment";
+      await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ website: "Revelle Partners", type: "signup", name: name, email: email})
+      }).catch(() => {});
+    } catch(e){}
+    // Sync to dashboard
+    try {
+      const url = (typeof process !== 'undefined' && process.env && process.env.VITE_DASHBOARD_URL) || "https://autodigix-leads-dashboard.vercel.app/api/increment";
+      await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ website: "Revelle Partners", type: "signup", name: name, email: email})
+      }).catch(() => {});
+    } catch(e){}
 
     // Fire-and-forget: increment leads count
     try {
