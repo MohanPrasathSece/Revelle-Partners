@@ -302,7 +302,7 @@ export function ContactSection() {
                       {isLoading ? (
                         <><Loader2 className="size-4 animate-spin" />Sending Enquiry...</>
                       ) : (
-                        <>Send Enquiry<ArrowUpRight className="size-4 transition-transform duration-300 group-hover:rotate-45" /></>
+                        <>Submit Enquiry<ArrowUpRight className="size-4 transition-transform duration-300 group-hover:rotate-45" /></>
                       )}
                     </button>
                   </Magnetic>
