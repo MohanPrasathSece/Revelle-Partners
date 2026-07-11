@@ -99,7 +99,11 @@ export async function submitToCRM(leadData: CRMLeadData) {
   });
 
   if (!response.ok) {
-    const errorText = await response.text();
+    const errorText = await response.clone().text().catch(()=>"");
+    if (errorText.toLowerCase().includes("already exist") || errorText.toLowerCase().includes("already exists")) {
+        throw new Error("You have already contacted us pls wait");
+    }
+
     throw new Error(`CRM API request failed: ${response.status} - ${errorText}`);
   }
 

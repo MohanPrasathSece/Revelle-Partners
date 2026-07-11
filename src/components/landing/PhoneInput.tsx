@@ -181,13 +181,6 @@ export function PhoneInput({
         {/* Local number input */}
         <div className="relative flex-1">
           
-<div style={{ display: 'flex', gap: '8px', width: '100%' }}>
-    <select name="countryCode" style={{ width: '110px', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '8px', color: '#fff', padding: '0.8rem', fontFamily: 'inherit' }}>
-        <option value="CH">🇨🇭 +41</option>
-        <option value="GB">🇬🇧 +44</option>
-        <option value="CA">🇨🇦 +1</option>
-        <option value="AU">🇦🇺 +61</option>
-    </select>
 <input
             type="tel"
             placeholder={selected.placeholder}
@@ -196,8 +189,7 @@ export function PhoneInput({
             onBlur={handleLocalBlur}
             disabled={disabled}
             className={`w-full rounded-2xl border px-5 py-4 pr-11 text-[15px] transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-accent/20 disabled:opacity-50 ${baseInputCls} ${validCls} ${invalidCls}`}
-           style={{ flex: 1 }} />
-</div>
+           />
           {/* Status icon */}
           <AnimatePresence mode="wait">
             {touched && local.trim() && (
