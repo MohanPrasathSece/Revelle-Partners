@@ -3,8 +3,7 @@ export interface Country {
   name: string;
   dial: string;    // e.g. "+44"
   flag: string;    // emoji flag
-  localLen: number | [number, number  { code: "GBR", name: "Great Britain", dial: "+44", flag: "🇬🇧", localLen: 10, placeholder: "7700 900077", regex: /^7\d{9}$/ },
-]; // exact digits OR [min, max]
+  localLen: number | [number, number]; // exact digits OR [min, max]
   placeholder: string; // local number example
 }
 
