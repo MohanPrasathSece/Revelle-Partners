@@ -1,6 +1,7 @@
 import process from "process";
 
 const DIAL_CODES: Record<string, string> = {
+  IE: "353",
   CH: "41",
   US: "1",
   GB: "44",

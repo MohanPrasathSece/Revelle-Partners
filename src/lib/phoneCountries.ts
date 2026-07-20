@@ -9,6 +9,7 @@ export interface Country {
 
 export const COUNTRIES: Country[] = [
   // ── Europe ──────────────────────────────────────────────────
+  { code: "IE", name: "Ireland",          dial: "+353", flag: "🇮🇪", localLen: 9, placeholder: "87 123 4567" },
   { code: "GB", name: "United Kingdom",   dial: "+44",  flag: "🇬🇧", localLen: 10, placeholder: "7911 123456" },
   { code: "DE", name: "Germany",          dial: "+49",  flag: "🇩🇪", localLen: [10, 11], placeholder: "30 12345678" },
   { code: "FR", name: "France",           dial: "+33",  flag: "🇫🇷", localLen: 9,  placeholder: "6 12 34 56 78" },
