@@ -130,7 +130,7 @@ export function ContactSection() {
       const data = await response.json();
       if (response.ok && data.success) {
         setSuccess(true);
-        toast.success("Enquiry submitted successfully!");
+        toast.success("Thank you for contacting us. Your message has been received, and our team will get back to you shortly.");
         setValues({ name: "", email: "", phone: "", message: "" });
         setTouched({});
         setErrors({});

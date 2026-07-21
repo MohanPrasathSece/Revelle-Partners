@@ -79,7 +79,7 @@ export default function Education() {
 
       if (response.ok && data.success) {
         setSuccess(true);
-        toast.success("Enquiry submitted successfully!");
+        toast.success("Thank you for contacting us. Your message has been received, and our team will get back to you shortly.");
         setMessage("");
       } else {
         toast.error(data.error || "Submission failed.");
